@@ -19,8 +19,15 @@ class UserController {
   static async store(user) {
     const { name, email, password } = user;
 
-    const createUser = await User.create({ name, email, password });
-    return user;
+    const createdUser = await User.create({ name, email, password });
+    return createdUser;
+  }
+
+  static async sendMessage(message) {
+    const { userId, serverId, content } = message;
+    console.log({ userId, serverId, content });
+    const createdUser = await User;
+    return createdUser;
   }
 
   static async login(user) {

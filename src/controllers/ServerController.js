@@ -26,9 +26,10 @@ class ServerController {
       return 'User or server not found'
     }
 
+    console.log(userToAsign);
     await userToAsign.addServer(targetServer);
 
-    return `${userToAsign.name} added to server successfully`
+    return `${userToAsign.name} added to ${targetServer.name} successfully`
   }
 
 }

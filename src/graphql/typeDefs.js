@@ -34,6 +34,7 @@ module.exports = gql`
     # User Mutations
     addUser(name: String, email: String, password: String): User,
     addUserToServer(server: ServerId, user: UserId): String
+    addMessagesToServer(server: Int, user: Int, content: String): String
 
     # Server Mutations
     addServer(name: String): Server

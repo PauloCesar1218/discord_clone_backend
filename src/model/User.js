@@ -13,6 +13,7 @@ class User extends Model {
 
   static associate(models) {
     this.belongsToMany(models.Server, { foreignKey: 'id_user', through: 'servers_users', as: 'Server' });
+    this.belongsToMany(models.Server, { foreignKey: 'id_user', through: 'server_messages', as: 'Server_Messages' });
   }
 }
 
