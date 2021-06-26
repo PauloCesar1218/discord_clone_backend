@@ -1,26 +1,23 @@
-"use strict";
+"use friendship_requestct";
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        const UsersTable = queryInterface.createTable("users", {
+        const friends = queryInterface.createTable("friends", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            name: {
+            friend_of: {
                 allowNull: false,
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
+                references: { model: "users", key: "id" },
             },
-            email: {
+            friend: {
                 allowNull: false,
-                unique: true,
-                type: Sequelize.STRING,
-            },
-            password: {
-                allowNull: false,
-                type: Sequelize.STRING,
+                type: Sequelize.INTEGER,
+                references: { model: "users", key: "id" },
             },
             created_at: {
                 allowNull: false,
@@ -34,8 +31,8 @@ module.exports = {
             },
         });
 
-        return UsersTable;
+        return friends;
     },
 
-    down: async (queryInterface, Sequelize) => queryInterface.dropTable("users"),
+    down: async (queryInterface, Sequelize) => queryInterface.dropTable("friends"),
 };

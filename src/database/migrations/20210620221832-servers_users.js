@@ -1,15 +1,19 @@
-"use strict";
+"use friendship_requestct";
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        const serverUsersTable = queryInterface.createTable("servers_users", {
-            id_user: {
+        const serversUsers = queryInterface.createTable("servers_users", {
+            user_id: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
+                primaryKey: true,
+                references: { model: "users", key: "id" },
             },
-            id_server: {
+            server_id: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
+                primaryKey: true,
+                references: { model: "servers", key: "id" },
             },
             created_at: {
                 allowNull: false,
@@ -23,8 +27,9 @@ module.exports = {
             },
         });
 
-        return serverUsersTable;
+        return serversUsers;
     },
 
-    down: async (queryInterface, Sequelize) => queryInterface.dropTable("servers_users")
+    down: async (queryInterface, Sequelize) =>
+        queryInterface.dropTable("servers_users"),
 };

@@ -2,7 +2,7 @@
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        const serverUsersTable = queryInterface.createTable("server_messages", {
+        const messages = queryInterface.createTable("messages", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -12,10 +12,12 @@ module.exports = {
             id_user: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
+                references: { model: 'users', key: 'id' },
             },
             id_server: {
                 allowNull: false,
                 type: Sequelize.INTEGER,
+                references: { model: 'servers', key: 'id' },
             },
             content: {
                 allowNull: false,
@@ -33,8 +35,8 @@ module.exports = {
             },
         });
 
-        return serverUsersTable;
+        return messages;
     },
 
-    down: async (queryInterface, Sequelize) => queryInterface.dropTable("server_messages")
+    down: async (queryInterface, Sequelize) => queryInterface.dropTable("messages")
 };
