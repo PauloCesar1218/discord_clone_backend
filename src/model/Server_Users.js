@@ -12,11 +12,6 @@ class ServersUsers extends Model {
             }
         );
     }
-
-    static associate(models) {
-        models.User.belongsToMany(models.Server, {through: ServersUsers, uniqueKey: 'server_id'})
-        models.Server.belongsToMany(models.User, {through: ServersUsers, uniqueKey: 'user_id'})
-    }
 }
 
 module.exports = ServersUsers;

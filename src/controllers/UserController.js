@@ -2,7 +2,9 @@ const User = require("../model/User");
 const { Op } = require("sequelize");
 const JWToken = require("jsonwebtoken");
 const verifyToken = require("./../util/verifyToken")
-
+const { UserInputError } = require('apollo-server');
+const { promisify } = require('util')
+const sleep = promisify(setTimeout)
 class UserController {
   static async getUsers(ctx) {
     try {
@@ -31,16 +33,22 @@ class UserController {
   }
 
   static async login(user) {
-    const { email, password } = user;
-    const authUser = await User.findAll({
-      where: {
-        [Op.and]: [{ email }, { password }],
-      },
-    });
-
-    if (authUser.length)
-      return JWToken.sign(authUser[0].dataValues, process.env.SECRET_KEY);
-    else return "Email ou senha incorretos";
+    try {
+      await sleep(2000)
+      const { email, password } = user;
+      const authUser = await User.findOne({
+        where: {
+          [Op.and]: [{ email }, { password }],
+        },
+        raw: true
+      })
+  
+      
+      if(!authUser) throw new UserInputError('Email ou senha incorreto(s)')
+      return {...authUser, token: JWToken.sign(authUser, process.env.SECRET_KEY)}
+    } catch (error) {
+      return error
+    }
   }
 }
 

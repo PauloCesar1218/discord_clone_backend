@@ -3,7 +3,10 @@ const ServerController = require('../controllers/ServerController');
 module.exports = {
   Query: {
     getUsers: async (_, args, context) => await usersController.getUsers(context),
-    login: async (_, args, context) => await usersController.login(args)
+    login: async (_, args, context) => await usersController.login(args),
+    getServerByUserID: async (_, args, context) => await ServerController.getServerByUserID(args),
+    getServer: async (_, args, context) => await ServerController.getServer(args),
+     
   },
   Mutation: {
     addUser: async (_, args, context) => await usersController.store(args),

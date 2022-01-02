@@ -24,6 +24,6 @@ Server.associate(connection.models);
 Messages.associate(connection.models);
 FriendRequest.associate(connection.models);
 Friend.associate(connection.models);
-ServersUsers.associate(connection.models);
+// ServersUsers.associate(connection.models);
 
 module.exports = connection;
